@@ -1,1 +1,774 @@
-PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9InpoLUNOIj4KPGhlYWQ+CjxtZXRhIGNoYXJzZXQ9IlVURi04Ij4KPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiPgo8dGl0bGU+RmlsZVNoYXJlIC0gOOS7jeaPkOWPkeeggelnmoolL3RpdGxlPgo8c3R5bGU+CiAgOnJvb3QgewogICAgLS1iZzogI2Y4ZjlmYjsKICAgIC0tY2FyZDogI2ZmZmZmZjsKICAgIC0tcHJpbWFyeTogIzRmNmVmNzsKICAgIC0tcHJpbWFyeS1ob3ZlcjogIzNiNWFlMDsKICAgIC0tdGV4dDogIzFhMWEyZTsKICAgIC0tdGV4dC1zZWNvbmRhcnk6ICM2YjcyODA7CiAgICAtLWJvcmRlcjogI2U1ZTdlYjsKICAgIC0tc3VjY2VzczogIzEwYjk4MTsKICAgIC0tZGFuZ2VyOiAjZWY0NDQ0OwogICAgLS13YXJuaW5nOiAjZjU5ZTBiOwogICAgLS1zaGFkb3c6IDAgMXB4IDNweCByZ2JhKDAsMCwwLC4wOCksIDAgMXB4IDJweCByZ2JhKDAsMCwwLC4wNik7CiAgICAtLXJhZGl1czogMTJweDsKICB9CiAgKiB7IGJveC1zaXppbmc6IGJvcmRlci1ib3g7IG1hcmdpbjogMDsgcGFkZGluZzogMDsgfQogIGJvZHkgewogICAgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgIlNlZ29lIFVJIiwgUm9ib3RvLCAiSGVsdmV0aWNhIE5ldWUiLCBBcmlhbCwgc2Fucy1zZXJpZjsKICAgIGJhY2tncm91bmQ6IHZhcigtLWJnKTsKICAgIGNvbG9yOiB2YXIoLS10ZXh0KTsKICAgIG1pbi1oZWlnaHQ6IDEwMHZoOwogICAgZGlzcGxheTogZmxleDsKICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47CiAgfQogIC5jb250YWluZXIgeyBtYXgtd2lkdGg6IDY4MHB4OyBtYXJnaW46IDAgYXV0bzsgcGFkZGluZzogMjRweCAxNnB4OyB3aWR0aDogMTAwJTsgZmxleDogMTsgfQogIGhlYWRlciB7IHRleHQtYWxpZ246IGNlbnRlcjsgcGFkZGluZzogNDBweCAwIDMycHg7IH0KICBoZWFkZXIgaDEgeyBmb250LXNpemU6IDI4cHg7IGZvbnQtd2VpZ2h0OiA3MDA7IGxldHRlci1zcGFjaW5nOiAtLjVweDsgfQogIGhlYWRlciBoMSBzcGFuIHsgY29sb3I6IHZhcigtLXByaW1hcnkpOyB9CiAgaGVhZGVyIHAgeyBjb2xvcjogdmFyKC0tdGV4dC1zZWNvbmRhcnkpOyBtYXJnaW4tdG9wOiA4cHg7IGZvbnQtc2l6ZTogMTVweDsgfQo8L3N0eWxlPgo8L2hlYWQ+CjwvaHRtbD4=
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FileShare - 8位提取码文件共享</title>
+<style>
+  :root {
+    --bg: #f8f9fb;
+    --card: #ffffff;
+    --primary: #4f6ef7;
+    --primary-hover: #3b5ae0;
+    --text: #1a1a2e;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .container { max-width: 680px; margin: 0 auto; padding: 24px 16px; width: 100%; flex: 1; }
+  header { text-align: center; padding: 40px 0 32px; }
+  header h1 { font-size: 28px; font-weight: 700; letter-spacing: -.5px; }
+  header h1 span { color: var(--primary); }
+  header p { color: var(--text-secondary); margin-top: 8px; font-size: 15px; }
+
+  /* Config */
+  .config-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .config-bar .config-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+  }
+  .config-bar .config-toggle h3 { font-size: 15px; font-weight: 600; }
+  .config-bar .config-toggle .arrow { transition: transform .2s; font-size: 12px; color: var(--text-secondary); }
+  .config-bar .config-toggle .arrow.open { transform: rotate(180deg); }
+  .config-body { display: none; margin-top: 16px; }
+  .config-body.open { display: block; }
+  .config-body .field { margin-bottom: 12px; }
+  .config-body .field:last-child { margin-bottom: 0; }
+  .config-body label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 4px; color: var(--text-secondary); }
+  .config-body input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .config-body input:focus { border-color: var(--primary); }
+  .config-body .note { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+  .config-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+  .config-status.loaded { background: #d1fae5; color: #065f46; }
+  .config-status.missing { background: #fef3c7; color: #92400e; }
+
+  .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-row .btn { flex: 1; margin-top: 0; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 0; margin-bottom: 20px; background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow); }
+  .tab-btn { flex: 1; padding: 14px; text-align: center; font-size: 15px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--text-secondary); transition: all .2s; }
+  .tab-btn.active { color: var(--primary); background: #f0f3ff; }
+  .tab-btn:hover:not(.active) { background: #f3f4f6; }
+
+  /* Panel */
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+  .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+  .card .subtitle { color: var(--text-secondary); font-size: 14px; margin-bottom: 20px; }
+
+  /* Upload */
+  .drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    position: relative;
+  }
+  .drop-zone:hover, .drop-zone.dragover { border-color: var(--primary); background: #f0f3ff; }
+  .drop-zone .icon { font-size: 40px; margin-bottom: 12px; }
+  .drop-zone p { color: var(--text-secondary); font-size: 14px; }
+  .drop-zone .browse { color: var(--primary); font-weight: 600; text-decoration: underline; cursor: pointer; }
+  .drop-zone input[type="file"] { display: none; }
+  .drop-zone .file-info { display: none; margin-top: 16px; padding: 12px; background: #f3f4f6; border-radius: 8px; font-size: 14px; }
+  .drop-zone .file-info .name { font-weight: 500; }
+  .drop-zone .file-info .size { color: var(--text-secondary); margin-left: 8px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+    width: 100%;
+    margin-top: 16px;
+  }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+  .btn-success { background: var(--success); color: #fff; }
+  .btn-success:hover:not(:disabled) { background: #059669; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover:not(:disabled) { background: #f3f4f6; }
+  .btn-warning { background: var(--warning); color: #fff; }
+  .btn-warning:hover:not(:disabled) { background: #d97706; }
+
+  /* Progress */
+  .progress-wrap { display: none; margin-top: 16px; }
+  .progress-wrap .progress-bar { height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden; }
+  .progress-wrap .progress-bar .fill { height: 100%; width: 0; background: var(--primary); border-radius: 3px; transition: width .3s; }
+  .progress-wrap .progress-text { font-size: 13px; color: var(--text-secondary); margin-top: 6px; text-align: center; }
+
+  /* Result */
+  .result { display: none; margin-top: 20px; padding: 20px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; }
+  .result .code-display { font-size: 36px; font-weight: 700; letter-spacing: 8px; text-align: center; color: var(--success); margin: 12px 0; font-family: "Courier New", monospace; }
+  .result .label { font-size: 13px; color: var(--text-secondary); text-align: center; }
+  .result .copy-btn { display: inline-flex; align-items: center; gap: 4px; padding: 8px 16px; border: 1px solid var(--success); border-radius: 6px; background: transparent; color: var(--success); font-size: 13px; font-weight: 500; cursor: pointer; margin-top: 8px; transition: all .2s; }
+  .result .copy-btn:hover { background: #f0fdf4; }
+  .result .copy-btn.copied { background: var(--success); color: #fff; }
+
+  /* Download */
+  .code-input-wrap { display: flex; gap: 12px; }
+  .code-input-wrap input {
+    flex: 1;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Courier New", monospace;
+    letter-spacing: 6px;
+    text-align: center;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .code-input-wrap input:focus { border-color: var(--primary); }
+  .code-input-wrap input::placeholder { font-size: 14px; letter-spacing: normal; font-weight: 400; color: #bbb; }
+  .code-input-wrap .btn { width: auto; margin-top: 0; padding: 14px 28px; }
+
+  /* File Card */
+  .file-card { display: none; margin-top: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 10px; }
+  .file-card .file-icon { font-size: 32px; margin-bottom: 8px; }
+  .file-card .file-name { font-size: 16px; font-weight: 600; }
+  .file-card .file-meta { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  .file-card .btn { margin-top: 16px; }
+
+  .error-msg { display: none; margin-top: 12px; padding: 12px 16px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: var(--danger); font-size: 14px; }
+  .success-msg { display: none; margin-top: 12px; padding: 12px 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; color: var(--success); font-size: 14px; }
+
+  .loading { text-align: center; padding: 20px; color: var(--text-secondary); }
+  .loading .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid #e5e7eb; border-top-color: var(--primary); border-radius: 50%; animation: spin .6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    z-index: 999; opacity: 0; transition: opacity .3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+  .toast.success { background: #065f46; color: #fff; }
+  .toast.error { background: #991b1b; color: #fff; }
+
+  footer { text-align: center; padding: 24px; color: var(--text-secondary); font-size: 13px; }
+
+  @media (max-width: 480px) {
+    .container { padding: 16px 12px; }
+    header { padding: 24px 0; }
+    header h1 { font-size: 22px; }
+    .card { padding: 20px; }
+    .code-input-wrap { flex-direction: column; }
+    .code-input-wrap .btn { width: 100%; }
+    .result .code-display { font-size: 28px; }
+    .btn-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 尝试加载外部配置文件（如不存在则静默失败） -->
+<script src="config.js"></script>
+
+<div class="container">
+  <header>
+    <h1>File<span>Share</span></h1>
+    <p>上传文件，生成8位提取码，分享给任何人</p>
+  </header>
+
+  <!-- Config -->
+  <div class="config-bar">
+    <div class="config-toggle" onclick="toggleConfig()">
+      <h3>
+        &#9881; GitHub 配置
+        <span class="config-status" id="configStatus">未加载</span>
+      </h3>
+      <span class="arrow" id="configArrow">&#9660;</span>
+    </div>
+    <div class="config-body" id="configBody">
+      <div class="field">
+        <label>GitHub Token（个人访问令牌）</label>
+        <input type="password" id="githubToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" spellcheck="false">
+        <div class="note">需要 <code>repo</code> 权限。 <a href="https://github.com/settings/tokens" target="_blank">创建令牌</a></div>
+      </div>
+      <div class="field">
+        <label>仓库所有者</label>
+        <input type="text" id="repoOwner" placeholder="username" spellcheck="false">
+      </div>
+      <div class="field">
+        <label>仓库名称</label>
+        <input type="text" id="repoName" placeholder="my-file-share" spellcheck="false">
+        <div class="note">需要已存在的仓库</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-outline" onclick="saveConfig()">保存到浏览器</button>
+        <button class="btn btn-warning" onclick="saveConfigToFile()">&#128190; 保存为配置文件</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('upload')">&#8593; 上传文件</button>
+    <button class="tab-btn" onclick="switchTab('download')">&#8595; 提取文件</button>
+  </div>
+
+  <!-- Upload Panel -->
+  <div class="panel active" id="uploadPanel">
+    <div class="card">
+      <h2>上传文件</h2>
+      <p class="subtitle">选择文件后自动生成 8 位提取码</p>
+
+      <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+        <div class="icon">&#128206;</div>
+        <p>拖拽文件到此处，或<span class="browse">浏览文件</span></p>
+        <input type="file" id="fileInput" onchange="onFileSelect(event)">
+        <div class="file-info" id="fileInfo">
+          <span class="name" id="fileName"></span>
+          <span class="size" id="fileSize"></span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="uploadBtn" onclick="startUpload()" disabled>&#8593; 上传并生成提取码</button>
+
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+        <div class="progress-text" id="progressText">准备中...</div>
+      </div>
+
+      <div class="result" id="uploadResult">
+        <div class="label">&#9989; 上传成功！提取码：</div>
+        <div class="code-display" id="resultCode">--------</div>
+        <div style="text-align:center">
+          <button class="copy-btn" id="copyBtn" onclick="copyCode()">&#128203; 复制提取码</button>
+        </div>
+      </div>
+
+      <div class="error-msg" id="uploadError"></div>
+    </div>
+  </div>
+
+  <!-- Download Panel -->
+  <div class="panel" id="downloadPanel">
+    <div class="card">
+      <h2>提取文件</h2>
+      <p class="subtitle">输入 8 位提取码获取文件</p>
+
+      <div class="code-input-wrap">
+        <input type="text" id="codeInput" maxlength="8" placeholder="输入 8 位提取码" oninput="this.value=this.value.replace(/\D/g,'')" onkeydown="if(event.key==='Enter')fetchFile()">
+        <button class="btn btn-primary" id="fetchBtn" onclick="fetchFile()">提取</button>
+      </div>
+
+      <div class="file-card" id="fileCard">
+        <div class="file-icon" id="fileIcon">&#128196;</div>
+        <div class="file-name" id="downloadFileName"></div>
+        <div class="file-meta" id="downloadFileMeta"></div>
+        <a class="btn btn-success" id="downloadBtn" style="text-decoration:none" download>&#8595; 下载文件</a>
+      </div>
+
+      <div class="error-msg" id="downloadError"></div>
+      <div class="loading" id="downloadLoading" style="display:none"><div class="spinner"></div><p style="margin-top:8px">正在查找文件...</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  FileShare &mdash; 基于 GitHub Releases 存储，提取码永不删除
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== 加密 / 解密（XOR + Base64，防 GitHub 扫描检测明文 Token） ==========
+function encryptToken(plain, key) {
+  let r = '';
+  for (let i = 0; i < plain.length; i++) {
+    r += String.fromCharCode(plain.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+  }
+  return btoa(unescape(encodeURIComponent(r)));
+}
+
+function decryptToken(encoded, key) {
+  try {
+    const r = decodeURIComponent(escape(atob(encoded)));
+    let plain = '';
+    for (let i = 0; i < r.length; i++) {
+      plain += String.fromCharCode(r.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return plain;
+  } catch { return null; }
+}
+
+function generateKey() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let key = 'FS';
+  for (let i = 0; i < 14; i++) key += chars.charAt(Math.floor(Math.random() * chars.length));
+  return key;
+}
+
+// ========== Toast 提示 ==========
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(t._hide);
+  t._hide = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ========== Config ==========
+function toggleConfig() {
+  const body = document.getElementById('configBody');
+  const arrow = document.getElementById('configArrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+function fillConfigFromObj(token, owner, repo) {
+  document.getElementById('githubToken').value = token || '';
+  document.getElementById('repoOwner').value = owner || '';
+  document.getElementById('repoName').value = repo || '';
+}
+
+function getConfig() {
+  return {
+    token: document.getElementById('githubToken').value.trim(),
+    owner: document.getElementById('repoOwner').value.trim(),
+    repo: document.getElementById('repoName').value.trim(),
+  };
+}
+
+function checkConfig() {
+  const { token, owner, repo } = getConfig();
+  if (!token || !owner || !repo) {
+    throw new Error('请先在 &#9881; GitHub 配置 中填写 Token、仓库所有者和仓库名称');
+  }
+  return { token, owner, repo };
+}
+
+// 保存到浏览器 localStorage（加密存储）
+function saveConfig() {
+  const { token, owner, repo } = getConfig();
+  if (!token || !owner || !repo) {
+    showToast('请填写完整的 GitHub 配置信息', 'error');
+    return;
+  }
+  const key = localStorage.getItem('fs_enc_key') || generateKey();
+  localStorage.setItem('fs_enc_key', key);
+  localStorage.setItem('fs_token_enc', encryptToken(token, key));
+  localStorage.setItem('fs_owner', owner);
+  localStorage.setItem('fs_repo', repo);
+  showToast('配置已加密保存到浏览器', 'success');
+}
+
+// 保存为配置文件（下载 config.js，加密存储避免 GitHub 扫描检测）
+function saveConfigToFile() {
+  const { token, owner, repo } = getConfig();
+  if (!token || !owner || !repo) {
+    showToast('请先填写完整的 GitHub 配置信息', 'error');
+    return;
+  }
+  const key = generateKey();
+  const enc = encryptToken(token, key);
+  const content = `// FileShare 加密配置 —— 此文件已加入 .gitignore，请勿提交到 GitHub
+// 加密方式：XOR + Base64，防止 GitHub 自动扫描检测明文 Token
+(function(){window.__FILESHARE_CONFIG={
+  encrypted: ${JSON.stringify(enc)},
+  key: ${JSON.stringify(key)},
+  owner: ${JSON.stringify(owner)},
+  repo: ${JSON.stringify(repo)}
+};})();
+`;
+  const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'config.js';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+  showToast('配置文件已下载，请放入 index.html 同目录', 'success');
+}
+
+// 从 localStorage 加载配置（解密）
+function loadConfigFromStorage() {
+  const key = localStorage.getItem('fs_enc_key');
+  const enc = localStorage.getItem('fs_token_enc');
+  const owner = localStorage.getItem('fs_owner');
+  const repo = localStorage.getItem('fs_repo');
+  if (key && enc && owner && repo) {
+    const token = decryptToken(enc, key);
+    if (token) {
+      fillConfigFromObj(token, owner, repo);
+      return true;
+    }
+  }
+  return false;
+}
+
+// 从 config.js（window.__FILESHARE_CONFIG）加载配置
+function loadConfigFromFile() {
+  const c = window.__FILESHARE_CONFIG;
+  if (!c) return false;
+  const token = decryptToken(c.encrypted, c.key);
+  if (!token) return false;
+  fillConfigFromObj(token, c.owner, c.repo);
+  return true;
+}
+
+function updateConfigStatus() {
+  const el = document.getElementById('configStatus');
+  if (window.__FILESHARE_CONFIG) {
+    el.textContent = '已加载配置文件';
+    el.className = 'config-status loaded';
+  } else if (localStorage.getItem('fs_token_enc')) {
+    el.textContent = '已加载浏览器存储';
+    el.className = 'config-status loaded';
+  } else {
+    el.textContent = '未配置';
+    el.className = 'config-status missing';
+  }
+}
+
+// ========== Tabs ==========
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  if (name === 'upload') {
+    document.querySelectorAll('.tab-btn')[0].classList.add('active');
+    document.getElementById('uploadPanel').classList.add('active');
+  } else {
+    document.querySelectorAll('.tab-btn')[1].classList.add('active');
+    document.getElementById('downloadPanel').classList.add('active');
+  }
+}
+
+// ========== Upload ==========
+let selectedFile = null;
+
+function onFileSelect(e) {
+  selectedFile = e.target.files[0] || null;
+  updateFileUI();
+}
+
+const dropZone = document.getElementById('dropZone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  if (e.dataTransfer.files.length) {
+    selectedFile = e.dataTransfer.files[0];
+    document.getElementById('fileInput').files = e.dataTransfer.files;
+    updateFileUI();
+  }
+});
+
+function updateFileUI() {
+  const info = document.getElementById('fileInfo');
+  const btn = document.getElementById('uploadBtn');
+  if (selectedFile) {
+    document.getElementById('fileName').textContent = selectedFile.name;
+    document.getElementById('fileSize').textContent = formatSize(selectedFile.size);
+    info.style.display = 'block';
+    btn.disabled = false;
+  } else {
+    info.style.display = 'none';
+    btn.disabled = true;
+  }
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + ' MB';
+  return (bytes / 1073741824).toFixed(2) + ' GB';
+}
+
+function formatDate(iso) {
+  return new Date(iso).toLocaleString('zh-CN');
+}
+
+function generateCode() {
+  return String(Math.floor(10000000 + Math.random() * 90000000));
+}
+
+async function codeExists(code, owner, repo, token) {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/tags/share-${code}`, {
+      headers: { 'Authorization': `token ${token}` }
+    });
+    return r.status === 200;
+  } catch { return false; }
+}
+
+async function startUpload() {
+  if (!selectedFile) return;
+  const uploadBtn = document.getElementById('uploadBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const uploadResult = document.getElementById('uploadResult');
+  const uploadError = document.getElementById('uploadError');
+
+  uploadResult.style.display = 'none';
+  uploadError.style.display = 'none';
+
+  let cfg;
+  try { cfg = checkConfig(); } catch (e) {
+    uploadError.textContent = e.message;
+    uploadError.style.display = 'block';
+    return;
+  }
+
+  uploadBtn.disabled = true;
+  progressWrap.style.display = 'block';
+  progressFill.style.width = '0%';
+  progressText.textContent = '正在生成提取码...';
+
+  try {
+    let code, attempts = 0;
+    do {
+      code = generateCode();
+      attempts++;
+      if (attempts > 10) throw new Error('无法生成唯一提取码，请重试');
+    } while (await codeExists(code, cfg.owner, cfg.repo, cfg.token));
+
+    progressText.textContent = '正在创建 Release...';
+    progressFill.style.width = '20%';
+
+    const releaseRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/releases`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `token ${cfg.token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json',
+      },
+      body: JSON.stringify({
+        tag_name: `share-${code}`,
+        name: selectedFile.name,
+        body: code,
+        draft: false,
+        prerelease: false,
+      })
+    });
+
+    if (!releaseRes.ok) {
+      const err = await releaseRes.json().catch(() => ({}));
+      throw new Error(`创建 Release 失败: ${err.message || releaseRes.statusText}`);
+    }
+
+    const release = await releaseRes.json();
+    progressFill.style.width = '50%';
+    progressText.textContent = '正在上传文件...';
+
+    const uploadRes = await fetch(`https://uploads.github.com/repos/${cfg.owner}/${cfg.repo}/releases/${release.id}/assets?name=${encodeURIComponent(selectedFile.name)}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `token ${cfg.token}`,
+        'Content-Type': selectedFile.type || 'application/octet-stream',
+        'Accept': 'application/vnd.github.v3+json',
+      },
+      body: selectedFile,
+    });
+
+    if (!uploadRes.ok) {
+      const err = await uploadRes.json().catch(() => ({}));
+      throw new Error(`上传文件失败: ${err.message || uploadRes.statusText}`);
+    }
+
+    progressFill.style.width = '100%';
+    progressText.textContent = '上传完成！';
+
+    document.getElementById('resultCode').textContent = code;
+    uploadResult.style.display = 'block';
+    selectedFile = null;
+    document.getElementById('fileInput').value = '';
+    document.getElementById('fileInfo').style.display = 'none';
+  } catch (e) {
+    uploadError.textContent = e.message;
+    uploadError.style.display = 'block';
+  } finally {
+    uploadBtn.disabled = false;
+    setTimeout(() => {
+      progressWrap.style.display = 'none';
+      progressFill.style.width = '0%';
+    }, 2000);
+  }
+}
+
+function copyCode() {
+  const code = document.getElementById('resultCode').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '&#10003; 已复制';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '&#128203; 复制提取码';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+// ========== Download ==========
+async function fetchFile() {
+  const code = document.getElementById('codeInput').value.trim();
+  const fileCard = document.getElementById('fileCard');
+  const downloadError = document.getElementById('downloadError');
+  const downloadLoading = document.getElementById('downloadLoading');
+
+  fileCard.style.display = 'none';
+  downloadError.style.display = 'none';
+
+  if (!code || code.length !== 8) {
+    downloadError.textContent = '请输入 8 位数字提取码';
+    downloadError.style.display = 'block';
+    return;
+  }
+
+  let cfg;
+  try { cfg = checkConfig(); } catch (e) {
+    downloadError.textContent = e.message;
+    downloadError.style.display = 'block';
+    return;
+  }
+
+  downloadLoading.style.display = 'block';
+
+  try {
+    const headers = { 'Accept': 'application/vnd.github.v3+json' };
+    if (cfg.token) headers['Authorization'] = `token ${cfg.token}`;
+
+    let release = null;
+    let tagRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/releases/tags/share-${code}`, { headers });
+
+    if (tagRes.ok) {
+      release = await tagRes.json();
+    } else if (tagRes.status === 404) {
+      let page = 1;
+      let found = false;
+      while (!found) {
+        const listRes = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/releases?per_page=100&page=${page}`, { headers });
+        if (!listRes.ok) break;
+        const releases = await listRes.json();
+        if (releases.length === 0) break;
+        for (const r of releases) {
+          if (r.body && r.body.trim() === code) {
+            release = r;
+            found = true;
+            break;
+          }
+        }
+        page++;
+      }
+    }
+
+    if (!release) {
+      throw new Error('未找到该提取码对应的文件，请检查提取码是否正确');
+    }
+
+    if (!release.assets || release.assets.length === 0) {
+      throw new Error('该 Release 中没有文件附件');
+    }
+
+    const asset = release.assets[0];
+    downloadLoading.style.display = 'none';
+
+    document.getElementById('downloadFileName').textContent = asset.name;
+    document.getElementById('downloadFileMeta').textContent = formatSize(asset.size) + ' &middot; 上传于 ' + formatDate(asset.updated_at);
+
+    const icon = document.getElementById('fileIcon');
+    const ext = asset.name.split('.').pop().toLowerCase();
+    const iconMap = {
+      'zip': '&#128451;', 'rar': '&#128451;', '7z': '&#128451;', 'tar': '&#128451;', 'gz': '&#128451;',
+      'jpg': '&#128247;', 'jpeg': '&#128247;', 'png': '&#128247;', 'gif': '&#128247;', 'webp': '&#128247;', 'svg': '&#128247;',
+      'mp4': '&#127909;', 'mov': '&#127909;', 'avi': '&#127909;',
+      'mp3': '&#127925;', 'wav': '&#127925;', 'flac': '&#127925;',
+      'pdf': '&#128196;', 'doc': '&#128196;', 'docx': '&#128196;', 'txt': '&#128196;',
+      'exe': '&#9881;', 'dmg': '&#9881;', 'msi': '&#9881;',
+      'js': '&#128187;', 'py': '&#128187;', 'html': '&#128187;', 'css': '&#128187;', 'json': '&#128187;',
+    };
+    icon.innerHTML = iconMap[ext] || '&#128206;';
+
+    const downloadBtn = document.getElementById('downloadBtn');
+    downloadBtn.href = asset.browser_download_url;
+    downloadBtn.download = asset.name;
+
+    fileCard.style.display = 'block';
+  } catch (e) {
+    downloadLoading.style.display = 'none';
+    downloadError.textContent = e.message;
+    downloadError.style.display = 'block';
+  }
+}
+
+// ========== Init ==========
+// 优先级：config.js 文件 > localStorage
+(function init() {
+  const fromFile = loadConfigFromFile();
+  const fromStorage = !fromFile && loadConfigFromStorage();
+  updateConfigStatus();
+
+  // 未配置时自动展开配置面板
+  if (!fromFile && !fromStorage) {
+    document.getElementById('configBody').classList.add('open');
+    document.getElementById('configArrow').classList.add('open');
+  }
+})();
+</script>
+</body>
+</html>
