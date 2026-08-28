@@ -1,0 +1,4 @@
+# FileShare 配置文件（包含加密后的 GitHub Token）
+# 此文件由页面「保存为配置文件」功能生成，
+# 使用 XOR+Base64 加密，防止 GitHub 自动扫描检测明文 Token
+config.js
